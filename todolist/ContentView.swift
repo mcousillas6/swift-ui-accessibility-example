@@ -11,24 +11,26 @@ import SwiftUI
 struct TodoItem: Identifiable {
   let id: Int
   let title: String
+  let accessibilityLabel: String
   var done: Bool = false
 }
 
 struct ContentView: View {
   @State var todos = [
-     TodoItem(id: 1, title: "Sample 1"),
-     TodoItem(id: 2, title: "Sample 2"),
-     TodoItem(id: 3, title: "Sample 3")
+     TodoItem(id: 1, title: "Buy more baldo", accessibilityLabel: "Buy more baldo"),
+     TodoItem(id: 2, title: "Invite GuriC to after",
+              accessibilityLabel: "Invite guriso to after"),
+     TodoItem(id: 3, title: "Expresso", accessibilityLabel: "Expresso")
   ]
 
   @State var showAlert = false
 
   var body: some View {
     VStack {
-      Text("Groceries")
+      Text("Kim's todo list")
         .font(.title)
         .fontWeight(.heavy)
-        .accessibility(label: Text("Grocery List"))
+        .accessibility(label: Text("Kim's todo list"))
       ForEach(todos) { todo in
         HStack {
           Text(todo.title)
@@ -38,7 +40,7 @@ struct ContentView: View {
         .padding()
         .accessibilityElement()
         .accessibility(
-          label: Text("\(todo.title) \(todo.done ? "done" : "pending" )")
+          label: Text("\(todo.accessibilityLabel) \(todo.done ? "done" : "pending" )")
         ).accessibility(addTraits: .isButton)
         .accessibility(
           hint: Text("Double tap to mark as \(todo.done ? "pending" : "done")")
