@@ -8,14 +8,67 @@
 
 import SwiftUI
 
+struct TodoItem: Identifiable {
+  let id: Int
+  let title: String
+  var done: Bool = false
+}
+
 struct ContentView: View {
-    var body: some View {
-        Text("Hello, World!")
+  @State var todos = [
+     TodoItem(id: 1, title: "Sample 1"),
+     TodoItem(id: 2, title: "Sample 2"),
+     TodoItem(id: 3, title: "Sample 3")
+  ]
+
+  @State var showAlert = false
+
+  var body: some View {
+    VStack {
+      Text("Groceries")
+        .font(.title)
+        .fontWeight(.heavy)
+        .accessibility(label: Text("Grocery List"))
+      ForEach(todos) { todo in
+        HStack {
+          Text(todo.title)
+            .font(.headline)
+          Image(systemName: todo.done ? "checkmark.square.fill" : "square")
+        }
+        .padding()
+        .accessibilityElement()
+        .accessibility(
+          label: Text("\(todo.title) \(todo.done ? "done" : "pending" )")
+        ).accessibility(addTraits: .isButton)
+        .accessibility(
+          hint: Text("Double tap to mark as \(todo.done ? "pending" : "done")")
+        )
+        .onTapGesture {
+          self.updateTodo(id: todo.id)
+        }
+      }
+      .frame(maxWidth: .infinity, alignment: .leading)
+      Spacer()
+    }.alert(isPresented: $showAlert) {
+      Alert(
+        title: Text("Finished!"),
+        message: Text("All your tasks are done"),
+        dismissButton: .default(Text("Got it!"))
+      )
     }
+  }
+
+  func updateTodo(id: Int) {
+    guard let index = todos.firstIndex(where: { $0.id == id }) else { return }
+    var todo = todos[index]
+    todo.done = !todo.done
+    todos[index] = todo
+    showAlert = todos.reduce(true) { $0 && $1.done }
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+      ContentView()
+  }
 }
