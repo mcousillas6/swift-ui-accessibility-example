@@ -16,9 +16,9 @@ struct TodoItem: Identifiable {
 
 struct ContentView: View {
   @State var todos = [
-     TodoItem(id: 1, title: "Sample 1"),
-     TodoItem(id: 2, title: "Sample 2"),
-     TodoItem(id: 3, title: "Sample 3")
+     TodoItem(id: 1, title: "Milk"),
+     TodoItem(id: 2, title: "Bread"),
+     TodoItem(id: 3, title: "Coffee")
   ]
 
   @State var showAlert = false
