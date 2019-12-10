@@ -14,22 +14,23 @@ struct InputView: View {
 
   var body: some View {
     VStack(alignment: .leading) {
-      Text("Add New")
-        .accessibility(label: Text("Add a new todo"))
-        .padding(.vertical)
       HStack {
         TextField(
-          "New Todo",
+          "Add New Todo",
           text: $text,
           onCommit: {
             self.onSubmit()
           }
+        )
+        .accessibility(
+          hint: Text("Tap return to submit")
         )
         .padding()
         .overlay(
           RoundedRectangle(cornerRadius: 8)
             .stroke(Color.gray, lineWidth: 1)
         )
+
         Button(
           action: {
             self.onSubmit()
@@ -37,6 +38,9 @@ struct InputView: View {
           label: {
             Text("Submit")
           }
+        )
+        .accessibility(
+          label: Text("Submit new todo item")
         )
       }
     }

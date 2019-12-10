@@ -17,14 +17,20 @@ struct ContentView: View {
         Text("Groceries")
           .font(.title)
           .fontWeight(.heavy)
+          .padding(.vertical)
           .accessibility(label: Text("Grocery List"))
+
+        InputView(
+          onSubmit: viewModel.addTodo,
+          text: $viewModel.newTodo
+        )
+
         ForEach(viewModel.todos) { todo in
           HStack {
             Text(todo.title)
               .font(.headline)
             Image(systemName: todo.done ? "checkmark.square.fill" : "square")
           }
-          .frame(maxWidth: .infinity, alignment: .leading)
           .padding(.vertical)
           .accessibilityElement()
           .accessibility(
@@ -32,16 +38,12 @@ struct ContentView: View {
           ).accessibility(addTraits: .isButton)
           .accessibility(
             hint: Text("Double tap to mark as \(todo.done ? "pending" : "done")")
-          )
+          ).frame(maxWidth: .infinity, alignment: .leading)
           .onTapGesture {
             self.viewModel.updateTodo(id: todo.id)
           }
         }
       }
-      InputView(
-        onSubmit: viewModel.addTodo,
-        text: $viewModel.newTodo
-      )
     }
     .padding()
     .alert(isPresented: $viewModel.showAlert) {
