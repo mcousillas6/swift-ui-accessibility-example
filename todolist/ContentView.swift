@@ -8,48 +8,43 @@
 
 import SwiftUI
 
-struct TodoItem: Identifiable {
-  let id: Int
-  let title: String
-  var done: Bool = false
-}
-
 struct ContentView: View {
-  @State var todos = [
-     TodoItem(id: 1, title: "Milk"),
-     TodoItem(id: 2, title: "Bread"),
-     TodoItem(id: 3, title: "Coffee")
-  ]
-
-  @State var showAlert = false
+  @EnvironmentObject var viewModel: TodoViewModel
 
   var body: some View {
-    VStack {
-      Text("Groceries")
-        .font(.title)
-        .fontWeight(.heavy)
-        .accessibility(label: Text("Grocery List"))
-      ForEach(todos) { todo in
-        HStack {
-          Text(todo.title)
-            .font(.headline)
-          Image(systemName: todo.done ? "checkmark.square.fill" : "square")
-        }
-        .padding()
-        .accessibilityElement()
-        .accessibility(
-          label: Text("\(todo.title) \(todo.done ? "done" : "pending" )")
-        ).accessibility(addTraits: .isButton)
-        .accessibility(
-          hint: Text("Double tap to mark as \(todo.done ? "pending" : "done")")
-        )
-        .onTapGesture {
-          self.updateTodo(id: todo.id)
+    VStack(alignment: .leading) {
+    ScrollView {
+        Text("Groceries")
+          .font(.title)
+          .fontWeight(.heavy)
+          .accessibility(label: Text("Grocery List"))
+        ForEach(viewModel.todos) { todo in
+          HStack {
+            Text(todo.title)
+              .font(.headline)
+            Image(systemName: todo.done ? "checkmark.square.fill" : "square")
+          }
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .padding(.vertical)
+          .accessibilityElement()
+          .accessibility(
+            label: Text("\(todo.title) \(todo.done ? "done" : "pending" )")
+          ).accessibility(addTraits: .isButton)
+          .accessibility(
+            hint: Text("Double tap to mark as \(todo.done ? "pending" : "done")")
+          )
+          .onTapGesture {
+            self.viewModel.updateTodo(id: todo.id)
+          }
         }
       }
-      .frame(maxWidth: .infinity, alignment: .leading)
-      Spacer()
-    }.alert(isPresented: $showAlert) {
+      InputView(
+        onSubmit: viewModel.addTodo,
+        text: $viewModel.newTodo
+      )
+    }
+    .padding()
+    .alert(isPresented: $viewModel.showAlert) {
       Alert(
         title: Text("Finished!"),
         message: Text("All your tasks are done"),
@@ -58,17 +53,11 @@ struct ContentView: View {
     }
   }
 
-  func updateTodo(id: Int) {
-    guard let index = todos.firstIndex(where: { $0.id == id }) else { return }
-    var todo = todos[index]
-    todo.done = !todo.done
-    todos[index] = todo
-    showAlert = todos.reduce(true) { $0 && $1.done }
-  }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-      ContentView()
+    ContentView()
   }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A249518239FC8D200A05725 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A249517239FC8D200A05725 /* TodoViewModel.swift */; };
+		1A24951A239FCD2F00A05725 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A249519239FCD2F00A05725 /* InputView.swift */; };
 		FE71537523981A1000DED439 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE71537423981A1000DED439 /* AppDelegate.swift */; };
 		FE71537723981A1000DED439 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE71537623981A1000DED439 /* SceneDelegate.swift */; };
 		FE71537923981A1000DED439 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE71537823981A1000DED439 /* ContentView.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A249517239FC8D200A05725 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
+		1A249519239FCD2F00A05725 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		FE71537123981A1000DED439 /* todolist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = todolist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE71537423981A1000DED439 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE71537623981A1000DED439 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 				FE71537F23981A1200DED439 /* LaunchScreen.storyboard */,
 				FE71538223981A1200DED439 /* Info.plist */,
 				FE71537C23981A1200DED439 /* Preview Content */,
+				1A249517239FC8D200A05725 /* TodoViewModel.swift */,
+				1A249519239FCD2F00A05725 /* InputView.swift */,
 			);
 			path = todolist;
 			sourceTree = "<group>";
@@ -146,7 +152,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A249518239FC8D200A05725 /* TodoViewModel.swift in Sources */,
 				FE71537523981A1000DED439 /* AppDelegate.swift in Sources */,
+				1A24951A239FCD2F00A05725 /* InputView.swift in Sources */,
 				FE71537723981A1000DED439 /* SceneDelegate.swift in Sources */,
 				FE71537923981A1000DED439 /* ContentView.swift in Sources */,
 			);
